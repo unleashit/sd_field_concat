@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="cck_field_live" version="1.7.0" method="upgrade">
+
+	<name>PLG_CCK_FIELD_LIVE_SD_CCK_FIELD</name>
+	<author>Simon Dowdles</author>
+	<authorEmail>simon@onestuckpixel.com</authorEmail>
+	<authorUrl>http://www.onestuckpixel.com</authorUrl>
+	<copyright>Copyright (C) 2011 Simon Dowdles. All Rights Reserved.</copyright>
+	<license>GNU General Public License version 2 or later.</license>
+	<creationDate>2011-10-17</creationDate>
+	<description>SD Live CCK Field Plugin - Easily use the value of any field within a CCK content type as your live value. Useful for pre-populating form modules with data from the content type in the main content area. NOTE: This will ONLY work when the form is shown alongside a SINGLE cck item and will NOT work when multiple CCK items are present, such as blog category layout. Enjoy!</description>
+	<version>1.0.0</version>
+	
+	<scriptfile>install/script.php</scriptfile>
+	
+	<files>
+		<folder>assets</folder>
+		<folder>install</folder>
+		<filename plugin="sd_cck_field">sd_cck_field.php</filename>
+		<filename>index.html</filename>
+	</files>
+	
+	<languages folder="languages">
+		<language tag="en-GB">en-GB/en-GB.plg_cck_field_live_sd_cck_field.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_cck_field_live_sd_cck_field.sys.ini</language>
+	</languages>
+	
+	<config>
+		<fields name="params" addfieldpath="/libraries/cck/construction/field">
+
+			<fieldset name="basic">
+				<field name=""
+					type="spacer"
+					hr="false"
+				/>
+			</fieldset>
+
+			<fieldset name="advanced">
+				<field
+					name="group"
+					type="text"
+					default="PLG_CCK_FIELD_LIVE_SD_CCK_FIELD_GROUP"
+					label="LIB_CCK_GROUP_LABEL"
+					size="60"
+					description="LIB_CCK_FIELD_LIVE_GROUP_DESC" />
+				<field
+					name="export"
+					type="cckexport"
+					default=""
+					label="LIB_CCK_EXPORT_LABEL"
+					description="LIB_CCK_FIELD_LIVE_EXPORT_DESC" />
+			</fieldset>
+
+		</fields>
+	</config>
+	
+</extension>
