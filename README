@@ -1,0 +1,38 @@
+---------------------------------------------------------------------------
+CCK LIVE FIELD PLUGIN FOR SEBLOD 2.X CCK FOR JOOMLA 1.7.X AND JOOMLA 2.1.X
+---------------------------------------------------------------------------
+
+Version: 1.0.0
+Name: SD Live CCK Field
+Author: Simon Dowdles - www.onestuckpixel.com
+Twitter: @simondowdles
+
+--------------
+Description
+--------------
+
+Use the value of any CCK field in the main article within the page and set it as a live value on any field
+
+--------------
+Instructions
+--------------
+
+> Install
+
+> Go to the content type / search type's field type you want to set a live value on
+
+> Select live type SD CCK Field and specify the field_name as the value
+
+> The value of field_name will be used as the live value where field_name is an existing field name of the main content type
+ 
+-------------
+ Notes
+-------------
+ 
+> SD Live CCK Field does not YET run on Joomla 2.5.x and SEBLOD 2.2, there is a joomla2.5.x branch that I am working on
+ 
+------------
+Contribute
+------------
+  
+If you'd like to contribute to this project, please request a fork, I'll be more than happy!
