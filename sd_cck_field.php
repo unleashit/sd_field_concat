@@ -1,12 +1,4 @@
 <?php
-/**
-* @version 			Seblod 2.0 More $Revision: 1 $
-* @package			Seblod (CCK for Joomla)
-* @author       	http://www.seblod.com
-* @copyright		Copyright (C) 2011 Simon Dowdles. All Rights Reserved.
-* @license 			GNU General Public License version 2 or later; see _LICENSE.php
-**/
-
 // No Direct Access
 defined( '_JEXEC' ) or die;
 
@@ -15,7 +7,7 @@ jimport( 'cck.construction.field_live.generic' );
 jimport( 'cck.rendering.rendering' );
 
 // Plugin Class
-class plgCCK_Field_LiveSd_Cck_Field extends plgCCK_Field_LiveGeneric
+class plgCCK_Field_LiveSd_Cck_Field extends JCckPluginLive
 {
 	protected static $type	=	'sd_cck_field';
 	
@@ -40,7 +32,7 @@ class plgCCK_Field_LiveSd_Cck_Field extends plgCCK_Field_LiveGeneric
 			// Get the live values, in our case the CCK field to clone
 			$SdFieldValue = trim($field->live_value);
 			// Get the value of the field we want to use as live value
-			$SdGetValue = $SdCck->me->$SdFieldValue->value;
+			$SdGetValue = $SdCck->me[$SdFieldValue]->value;
 			// Did it exist? Did it have a value? Good! If not, assign false. Can assign NULL too if so desired.
 			$live = (($SdGetValue !== NULL && $SdGetValue > '') ? $SdGetValue : false);
 		}
