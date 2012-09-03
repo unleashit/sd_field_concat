@@ -3,7 +3,7 @@
 * @version 			Seblod 2.0 Core $Id$
 * @package			Seblod (CCK for Joomla)
 * @author       	http://www.seblod.com
-* @copyright		Copyright (C) 2011 SEBLOD. All Rights Reserved.
+* @copyright		Copyright (C) 2011 Seblod. All Rights Reserved.
 * @license 			GNU General Public License version 2 or later; see _LICENSE.php
 **/
 
@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die;
 jimport( 'cck.base.install.install' );
 
 // Script Class
-class plgCCK_Field_LiveSd_Cck_FieldInstallerScript
+class plgCCK_FieldSd_Field_ConcatInstallerScript
 {
 	protected $cck;
 	protected $core;
@@ -62,7 +62,7 @@ class plgCCK_Field_LiveSd_Cck_FieldInstallerScript
 			return;
 		}
 		
-		CCK_Install::import( $parent, 'install', $this->cck );
+		CCK_Install::import( $parent, 'install' );
 	}
 }
 ?>
