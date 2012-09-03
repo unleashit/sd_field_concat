@@ -225,7 +225,7 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[\$]^", $sdField)):
 					$sdFind = array('$date', '$time', '$username', '$userid');
-					$sdReplace = array(date($SdDateFormat), date('H:m:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
+					$sdReplace = array(date($SdDateFormat), date('H:i:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
 					$sdField = str_replace($sdFind, $sdReplace, $sdField);
 					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[#(.*)#]^", $sdField)):
@@ -424,7 +424,7 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[\$]^", $sdField)):
 					$sdFind = array('$date', '$time', '$username', '$userid');
-					$sdReplace = array(date($SdDateFormat), date('H:m:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
+					$sdReplace = array(date($SdDateFormat), date('H:i:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
 					$sdField = str_replace($sdFind, $sdReplace, $sdField);
 					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[#(.*)#]^", $sdField)):
