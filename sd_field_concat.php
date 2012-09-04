@@ -1,6 +1,6 @@
 <?php
 /*
- * Version		2.2.5
+ * Version		2.2.6
  * Name			SD Field Concat
  * Author		Simon Dowdles
  * Website		www.onestuckpixel.com
@@ -219,19 +219,19 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 				};
 				
 				$sdField = $ai;
-				($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+				($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 				
 				/* End Next Auto Increment */
 				
 				elseif(preg_match("^[\[\]]^", $sdField)):
 					$sdField = str_replace(array('[',']'), array('',''), $sdField);
 					$sdField = ($SdJtext == 1 ? JText::_('PLG_CCK_FIELD_SD_FIELD_CONCAT_'.str_replace(array(';',':','`','~','}','{','>','<','!','=',',','-'),'',trim(strtoupper(str_replace(' ', '_', $sdField))))) : $sdField);
-					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[\$]^", $sdField)):
 					$sdFind = array('$date', '$time', '$username', '$userid');
 					$sdReplace = array(date($SdDateFormat), date('H:i:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
 					$sdField = str_replace($sdFind, $sdReplace, $sdField);
-					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[#(.*)#]^", $sdField)):
 					$sdField = trim(str_replace('#','',$sdField));
 					$sdFieldTmp = JCckDevField::getObject($sdField);
@@ -249,14 +249,14 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 										$dynamicText =  JCckDatabase::loadResult($query);
 										if(trim($dynamicText) > ''):
 											$sdConcatValue .= $dynamicText;
-											$sdConcatValue .= ($sdNumStep < $sdNumFields ? $sdFieldSeparator : null);
+											$sdConcatValue .= ($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null);
 										endif;
 										$sdFieldTmp = '';
 									}else{ // if not dynamic
 										$sdFieldTmp = parent::g_getOptionText( trim($config['post'][$sdField]), $sdFieldTmp->options, '', $config );
 										if(trim($sdFieldTmp) > ''):
 											$sdConcatValue .= $sdFieldTmp;
-											$sdConcatValue .= ($sdNumStep < $sdNumFields ? $sdFieldSeparator : null);
+											$sdConcatValue .= ($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null);
 										endif;
 										$sdFieldTmp = '';
 									};
@@ -273,17 +273,17 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 										$dynamicText =  JCckDatabase::loadResult($query);
 										if(trim($dynamicText) > ''):
 											$sdConcatValue .= $dynamicText;
-											$sdConcatValue .= ($sdNumStep < $sdNumFields ? $sdFieldSeparator : null);
+											$sdConcatValue .= ($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null);
 										endif;
 										$sdFieldTmp = '';
 									}else{
-										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 										$sdFieldTmp = '';
 									}
 								break;
 								
 								default:
-									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 									$sdFieldTmp = '';
 								break;
 							};
@@ -324,11 +324,11 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 								break;
 								
 								default:
-									//($sdField > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+									//($sdField > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 								break;
 							};
 						}else{
-						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 					};				
 				endif;
 			endforeach;
@@ -420,17 +420,17 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 				};
 				
 				$sdField = $ai;
-				($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+				($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 				/* End Next Auto Increment */
 				elseif(preg_match("^[\[\]]^",$sdField )):
 					$sdField = str_replace(array('[',']'), array('',''), $sdField );
 					$sdField = ($SdJtext == 1 ? JText::_('PLG_CCK_FIELD_SD_FIELD_CONCAT_'.str_replace(array(';',':','`','~','}','{','>','<','!','=',',','-'),'',trim(strtoupper(str_replace(' ', '_', $sdField))))) : $sdField);
-					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[\$]^", $sdField)):
 					$sdFind = array('$date', '$time', '$username', '$userid');
 					$sdReplace = array(date($SdDateFormat), date('H:i:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
 					$sdField = str_replace($sdFind, $sdReplace, $sdField);
-					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[#(.*)#]^", $sdField)):
 					$sdField = trim(str_replace('#','',$sdField));
 					$sdFieldTmp = JCckDevField::getObject($sdField);
@@ -446,7 +446,7 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 										$dynamicText =  JCckDatabase::loadResult($query);
 										if(trim($dynamicText) > ''):
 											$sdConcatValue .= $dynamicText;
-											$sdConcatValue .= ($sdNumStep < $sdNumFields ? $sdFieldSeparator : null);
+											$sdConcatValue .= ($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null);
 										endif;
 										$sdFieldTmp = '';
 									}else{
@@ -468,16 +468,16 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 										$dynamicText =  JCckDatabase::loadResult($query);
 										if(trim($dynamicText) > ''):
 											$sdConcatValue .= $dynamicText;
-											$sdConcatValue .= ($sdNumStep < $sdNumFields ? $sdFieldSeparator : null);
+											$sdConcatValue .= ($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null);
 										endif;
 										$sdFieldTmp = '';
 									}else{
-										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 									}
 								break;
 								
 								default:
-									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 								break;
 							};
 					}elseif($sdFieldTmp->type == 'select_multiple' || ($sdFieldTmp->type == 'checkbox' && is_array($config['post'][$sdField])) || ($sdFieldTmp->type == 'radio' && is_array($config['post'][$sdField]))){
@@ -515,12 +515,12 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 								break;
 								
 								default:
-									//($sdField > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+									//($sdField > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 								break;
 							};
 						}
 					else{
-						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep+1 < $sdNumFields ? $sdFieldSeparator : null) : null);
 						
 					};				
 				endif;
