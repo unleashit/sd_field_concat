@@ -7,6 +7,7 @@
  * 
  * Release Notes:
  * Fixes certain concat seperator issues where if field values were blank, the concatenation seperators were still being added
+ * This was achieved by checking the final value (string) for the presence of the sepearator at the end - using mostly substr()
  *
  **/
 
@@ -219,7 +220,7 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 				};
 				
 				$sdField = $ai;
-				($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+				($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields && $sdField > '' ? $sdFieldSeparator : null) : null);
 				
 				/* End Next Auto Increment */
 				
@@ -277,13 +278,13 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 										endif;
 										$sdFieldTmp = '';
 									}else{
-										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields && trim($config['post'][$sdField]) > '' ? $sdFieldSeparator : null) : null);
 										$sdFieldTmp = '';
 									}
 								break;
 								
 								default:
-									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields && trim($config['post'][$sdField]) > '' ? $sdFieldSeparator : null) : null);
 									$sdFieldTmp = '';
 								break;
 							};
@@ -328,7 +329,15 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 								break;
 							};
 						}else{
-						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+							
+						$sdNumFields = trim($config['post'][$sdField]) == "" ? $sdNumFields-1 : $sdNumFields;
+						
+						if(trim($config['post'][$sdField]) !== ""){
+							$sdConcatValue .= trim($config['post'][$sdField]);
+							if($sdNumStep < $sdNumFields){
+								$sdConcatValue .= $sdFieldSeparator;
+							}
+						}
 					};				
 				endif;
 			endforeach;
@@ -425,7 +434,7 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 				elseif(preg_match("^[\[\]]^",$sdField )):
 					$sdField = str_replace(array('[',']'), array('',''), $sdField );
 					$sdField = ($SdJtext == 1 ? JText::_('PLG_CCK_FIELD_SD_FIELD_CONCAT_'.str_replace(array(';',':','`','~','}','{','>','<','!','=',',','-'),'',trim(strtoupper(str_replace(' ', '_', $sdField))))) : $sdField);
-					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+					($sdField > '' ? $sdConcatValue .= $sdField.($sdNumStep < $sdNumFields && $sdField > '' ? $sdFieldSeparator : null) : null);
 				elseif(preg_match("^[\$]^", $sdField)):
 					$sdFind = array('$date', '$time', '$username', '$userid');
 					$sdReplace = array(date($SdDateFormat), date('H:i:s'), ($user->username > '' ? $user->username : ''), ($user->id > '' ? $user->id : ''));
@@ -472,12 +481,12 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 										endif;
 										$sdFieldTmp = '';
 									}else{
-										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+										($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields && trim($config['post'][$sdField]) > '' ? $sdFieldSeparator : null) : null);
 									}
 								break;
 								
 								default:
-									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+									($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields && trim($config['post'][$sdField]) > '' ? $sdFieldSeparator : null) : null);
 								break;
 							};
 					}elseif($sdFieldTmp->type == 'select_multiple' || ($sdFieldTmp->type == 'checkbox' && is_array($config['post'][$sdField])) || ($sdFieldTmp->type == 'radio' && is_array($config['post'][$sdField]))){
@@ -520,14 +529,24 @@ class plgCCK_FieldSd_Field_Concat extends JCckPluginField
 							};
 						}
 					else{
-						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields ? $sdFieldSeparator : null) : null);
+						($sdField > '' && trim($config['post'][$sdField]) > '' ? $sdConcatValue .= trim($config['post'][$sdField]).($sdNumStep < $sdNumFields && trim($config['post'][$sdField]) > '' ? $sdFieldSeparator : null) : null);
 						
 					};				
 				endif;
 				/* END SINGLE FEILD */
 		endif;
-		// The final straw, the big guy, the heavy lifter!!!
-		$value = $sdConcatValue;
+		
+		// The following code checks to see if the final value has the field seperator at the end, and if it does, it removes it...
+				
+		$finalValue = substr($sdConcatValue, -(strlen($sdFieldSeparator)));
+		
+		if($finalValue == $sdFieldSeparator){
+			$finalValue = substr($sdConcatValue, 0, -(strlen($sdFieldSeparator)));
+		}else{
+			$finalValue = $sdConcatValue;
+		}
+
+		$value = $finalValue; // Grrrt, over and out, all done...
 		
 		####################################################################
 		// END SD FIELD CONCAT - SIMON DOWDLES - http://www.simondowdles.com
