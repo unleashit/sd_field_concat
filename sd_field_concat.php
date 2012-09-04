@@ -1,8 +1,12 @@
 <?php
 /*
- * @Name		SD Field Concat
- * @Author		Simon Dowdles
- * @Website		www.onestuckpixel.com
+ * Version		2.2.5
+ * Name			SD Field Concat
+ * Author		Simon Dowdles
+ * Website		www.onestuckpixel.com
+ * 
+ * Release Notes:
+ * Fixes certain concat seperator issues where if field values were blank, the concatenation seperators were still being added
  *
  **/
 
