@@ -14,7 +14,6 @@
 	<scriptfile>install/script.php</scriptfile>
 	
 	<files>
-		<folder>assets</folder>
 		<folder>install</folder>
 		<folder>install/fields</folder>
 		<folder>languages</folder>
