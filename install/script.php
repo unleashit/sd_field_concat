@@ -27,14 +27,14 @@ class plgCCK_FieldSd_Field_ConcatInstallerScript
 		
 		// Publish
 		$db		=	JFactory::getDBO();
-		$query	=	'UPDATE #__extensions SET enabled = 1 WHERE type = "'.$this->cck->type.'" AND element = "'.$this->cck->element.'"';
-		$query	=	( $this->cck->group ) ? $query.' AND folder = "'.$this->cck->group.'"' : $query;
+		$query	=	'UPDATE #__extensions SET enabled = 1 WHERE element = "sd_field_concat"';
+		//$query	=	( $this->cck->group ) ? $query.' AND folder = "'.$this->cck->group.'"' : $query;
 		$db->setQuery( $query );
 		$db->query();
 	}
 	
 	// uninstall
-	function uninstall( $parent )
+	/*function uninstall( $parent )
 	{
 	}
 	
@@ -63,6 +63,6 @@ class plgCCK_FieldSd_Field_ConcatInstallerScript
 		}
 		
 		CCK_Install::import( $parent, 'install' );
-	}
+	}*/
 }
 ?>
