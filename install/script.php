@@ -47,7 +47,7 @@ class plgCCK_FieldSd_Field_ConcatInstallerScript
 	function preflight( $type, $parent )
 	{
 		$app		=	JFactory::getApplication();
-		$this->core	=	$app->get( 'cck_core' );
+		$this->core	=	$app->input->get( 'cck_core' );
 		if ( $this->core === true ) {
 			return;
 		}
